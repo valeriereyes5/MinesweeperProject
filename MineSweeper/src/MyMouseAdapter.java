@@ -94,36 +94,18 @@ public class MyMouseAdapter extends MouseAdapter {
 							//Released the mouse button on a different cell where it was pressed
 							//Do nothing
 						} else {
+							Color newColor = null;
 							//Released the mouse button on the same cell where it was pressed
-							if ((gridX == 0) || (gridY == 0)) {
-								//On the left column and on the top row... do nothing
+							if (myPanel.bombArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY]) {
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.BLACK;
-
-							} else {
-								//On the grid other than on the left column and on the top row:
-								Color newColor = null;
-								
-								switch (generator.nextInt(5)) {  //Cuantos colores usara
-									case 0:
-										newColor = Color.YELLOW;
-										break;
-									case 1:
-										newColor = Color.MAGENTA;
-										break;
-									case 2:
-										newColor = Color.BLACK;
-										break;
-									case 3:
-										newColor = new Color(0x964B00);   //Brown (from http://simple.wikipedia.org/wiki/List_of_colors)
-										break;
-									case 4:
-										newColor = new Color(0xB57EDC);   //Lavender (from http://simple.wikipedia.org/wiki/List_of_colors)
-										break;
-								}
-								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-								myPanel.repaint();
-								
+								 myPanel.DisplayMines();
+							}else {
+							     newColor = Color.LIGHT_GRAY;
 							}
+							
+							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
+							myPanel.repaint();
+
 						}
 					}
 				}
@@ -162,11 +144,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							//Do nothing
 						} else {
 							//Released the mouse button on the same cell where it was pressed
-							if ((gridX == 0) || (gridY == 0)) {
-								//On the left column and on the top row... do nothing
-								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.BLACK;
 
-							} else {
 								//On the grid other than on the left column and on the top row:
 								Color newColor = null;
 								/////////////Right click- white turns red////
@@ -181,7 +159,7 @@ public class MyMouseAdapter extends MouseAdapter {
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 								myPanel.repaint();
 								
-							}
+							
 						}
 					}
 				}

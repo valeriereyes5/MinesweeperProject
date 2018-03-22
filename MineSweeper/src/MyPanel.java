@@ -12,14 +12,13 @@ public class MyPanel extends JPanel {
 	private static final int INNER_CELL_SIZE = 70;
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 10;   //Last row has only one cell
-	////////////////////////////ADDED MINES INT ////////////////////////////////////////////
-	private static final int TOTAL_MINES = 10;
-////////////////////////////ADDED MINES INT ////////////////////////////////////////////
+
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
+	public Boolean[][] bombArray = new Boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -30,12 +29,14 @@ public class MyPanel extends JPanel {
 		if (TOTAL_ROWS + (new Random()).nextInt(1) < 3) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("TOTAL_ROWS must be at least 3!");
 		}
-	
+
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
 			for (int y = 0; y < TOTAL_ROWS ; y++) { 
 				colorArray[x][y] = Color.WHITE;
+				bombArray[x][y] = false;
 			}
 		}
+		GenerateMines();
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -55,9 +56,9 @@ public class MyPanel extends JPanel {
 
 		//Draw the grid minus the bottom row (which has only one cell)
 		//By default, the grid will be 10x10 (see above: TOTAL_COLUMNS and TOTAL_ROWS) 
-		
+
 		/////////////////////////CAMBIAR LINEAS que divide DE MINSWEEPER///////////////////
-		
+
 		g.setColor(Color.BLACK);
 		for (int y = 0; y <= TOTAL_ROWS - 1; y++) {
 			g.drawLine(x1 + GRID_X, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)), x1 + GRID_X + ((INNER_CELL_SIZE + 1) * TOTAL_COLUMNS), y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)));
@@ -72,18 +73,47 @@ public class MyPanel extends JPanel {
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
 			for (int y = 0; y < TOTAL_ROWS-1; y++) { ////added -1 para que no pinte el cuadrito extra
-				
-					Color c = colorArray[x][y];
-					
-///////////////////////////////Si lo cambias cambia todo a un mismo color ////////////////////////
-					g.setColor(c);
-					
-					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1))+1 , INNER_CELL_SIZE, INNER_CELL_SIZE);
-				
+
+				Color c = colorArray[x][y];
+
+				///////////////////////////////Si lo cambias cambia todo a un mismo color ////////////////////////
+				g.setColor(c);
+
+				g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1))+1 , INNER_CELL_SIZE, INNER_CELL_SIZE);
+
 			}
 		}
 	}
+	/////////////////////METHOD THAT CREATES MINES////////////////////
+	public void GenerateMines() {
+		int numOfBombs = 0;
+		int totalBombs = 10;
 
+
+
+		
+
+		while(numOfBombs<totalBombs) {
+			int randomX = new Random().nextInt(TOTAL_COLUMNS);
+			int randomY = new Random().nextInt(TOTAL_ROWS);
+			if (!(bombArray[randomX][randomY])) {
+				bombArray[randomX][randomY] = true;	
+				numOfBombs++;
+				//colorArray[randomX][randomY]=Color.BLACK;
+				//repaint();
+			}
+		}
+
+	}
+	public void DisplayMines() {
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
+			for (int y = 0; y < TOTAL_ROWS ; y++) { 
+				if(bombArray[x][y] ) { 
+				colorArray[x][y] = Color.BLACK;
+				}
+			}
+		}
+	}
 
 	// This method helps to find the adjacent boxes that don't have a mine.
 	// It is partially implemented since the verify hasn't been discussed in class
@@ -99,11 +129,11 @@ public class MyPanel extends JPanel {
 			revealAdjacent(x, y-1);
 			revealAdjacent(x, y+1);
 		}
-		
+
 		System.out.println("Test");
 
 	}
-	
+
 
 
 
