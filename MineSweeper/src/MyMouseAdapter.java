@@ -169,10 +169,11 @@ public class MyMouseAdapter extends MouseAdapter {
 							} else {
 								//On the grid other than on the left column and on the top row:
 								Color newColor = null;
-								
+								/////////////Right click- white turns red////
 								if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.WHITE)) {
 									newColor = Color.RED;
 								}
+								/////////Right click - red turns white///
 								else if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)) {
 									newColor = Color.WHITE;
 
