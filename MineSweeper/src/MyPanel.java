@@ -19,6 +19,8 @@ public class MyPanel extends JPanel {
 	public int mouseDownGridY = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public Boolean[][] bombArray = new Boolean[TOTAL_COLUMNS][TOTAL_ROWS];
+	public int[][] bombAdjacent = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public Boolean[][]freeArray  = new Boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -34,6 +36,8 @@ public class MyPanel extends JPanel {
 			for (int y = 0; y < TOTAL_ROWS ; y++) { 
 				colorArray[x][y] = Color.WHITE;
 				bombArray[x][y] = false;
+				bombAdjacent[x][y] = 0;
+				freeArray[x][y] = false;
 			}
 		}
 		GenerateMines();
@@ -84,11 +88,11 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
-	/////////////////////METHOD THAT CREATES MINES AT RANDOM PLACES////////////////////
+	/////////////////////METHOD THAT CREATES MINES AT RANDOM PLACES And tels each square howmany bombs around it////////////////////
 	public void GenerateMines() {
 		int numOfBombs = 0;
 		int totalBombs = 10;
-		
+
 
 		while(numOfBombs<totalBombs) {
 			int randomX = new Random().nextInt(TOTAL_COLUMNS);
@@ -96,6 +100,21 @@ public class MyPanel extends JPanel {
 			if (!(bombArray[randomX][randomY])) {
 				bombArray[randomX][randomY] = true;	
 				numOfBombs++;
+				/////////////////////////
+				for (int i= randomX-1; i<= randomX +1; i++) {
+					if( (i >= 0)&& (i<TOTAL_COLUMNS)) {
+						for(int j = randomY -1; j<= randomY+1; j++) {
+							if((j >= 0)&&( j< TOTAL_ROWS -1)){
+								if(randomX == i && randomY == j) {
+									continue;
+								}
+								bombAdjacent[i][j] = bombAdjacent[i][j] + 1;
+							}
+
+						}
+					}
+
+				}
 				/////// CHECKS IF MINES ARE BEING CREATED///
 				//colorArray[randomX][randomY]=Color.BLACK;
 				//repaint();
@@ -108,7 +127,7 @@ public class MyPanel extends JPanel {
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
 			for (int y = 0; y < TOTAL_ROWS ; y++) { 
 				if(bombArray[x][y] ) { 
-				colorArray[x][y] = Color.BLACK;
+					colorArray[x][y] = Color.BLACK;
 				}
 			}
 		}
@@ -118,15 +137,60 @@ public class MyPanel extends JPanel {
 	// It is partially implemented since the verify hasn't been discussed in class
 	// Verify that the coordinates in the parameters are valid.
 	// Also verifies if there are any mines around the x,y coordinate
+
+	///////REVEALS THE NUMBER OF BOMBS SORROUNDING THE SQUARE
 	public void revealAdjacent(int x, int y){
 		if((x<0) || (y<0) || (x>=9) || (y>=9)){return;}
 
 		else {
-			colorArray[x][y] = Color.GRAY;
-			revealAdjacent(x-1, y);
-			revealAdjacent(x+1, y);
-			revealAdjacent(x, y-1);
-			revealAdjacent(x, y+1);
+			Color newColor = Color.LIGHT_GRAY;
+			switch(bombAdjacent[x][y]) {
+			case 1:
+				newColor = Color.YELLOW;
+				break;
+			case 2:
+				newColor = Color.BLUE;
+				break;
+			case 3:
+				newColor = Color.CYAN;
+				break;
+			case 4:
+				newColor = Color.DARK_GRAY;
+				break;
+			case 5:
+				newColor = Color.GREEN;
+				break;
+			case 6:
+				newColor = Color.MAGENTA;
+				break;
+			case 7:
+				newColor = Color.ORANGE;
+				break;
+			case 8:
+				newColor = new Color(230,230,250); ////lavender
+				break;
+			default:
+				newColor = Color.LIGHT_GRAY;
+				break;
+			}
+			colorArray[x][y] = newColor;
+			repaint();
+
+			if(bombAdjacent[x][y] == 0 && !freeArray[x][y]) {
+				freeArray[x][y] = true;
+
+
+
+				//			colorArray[x][y] = Color.GRAY;
+				revealAdjacent(x-1, y);
+				revealAdjacent(x+1, y);
+				revealAdjacent(x, y-1);
+				revealAdjacent(x, y+1);
+				revealAdjacent(x-1, y-1);
+				revealAdjacent(x+1, y-1);
+				revealAdjacent(x+1, y+1);
+				revealAdjacent(x-1, y+1);
+			}
 		}
 
 		System.out.println("Test");
