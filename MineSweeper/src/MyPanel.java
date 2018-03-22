@@ -84,13 +84,10 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
-	/////////////////////METHOD THAT CREATES MINES////////////////////
+	/////////////////////METHOD THAT CREATES MINES AT RANDOM PLACES////////////////////
 	public void GenerateMines() {
 		int numOfBombs = 0;
 		int totalBombs = 10;
-
-
-
 		
 
 		while(numOfBombs<totalBombs) {
@@ -99,12 +96,14 @@ public class MyPanel extends JPanel {
 			if (!(bombArray[randomX][randomY])) {
 				bombArray[randomX][randomY] = true;	
 				numOfBombs++;
+				/////// CHECKS IF MINES ARE BEING CREATED///
 				//colorArray[randomX][randomY]=Color.BLACK;
 				//repaint();
 			}
 		}
 
 	}
+	/////goes through all squares, if there'a a mine, the square turns black
 	public void DisplayMines() {
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
 			for (int y = 0; y < TOTAL_ROWS ; y++) { 
