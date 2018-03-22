@@ -71,7 +71,7 @@ public class MyPanel extends JPanel {
 
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
-			for (int y = 0; y < TOTAL_ROWS-1; y++) {
+			for (int y = 0; y < TOTAL_ROWS-1; y++) { ////added -1 para que no pinte el cuadrito extra
 				
 					Color c = colorArray[x][y];
 					
