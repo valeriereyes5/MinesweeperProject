@@ -200,6 +200,7 @@ public class MyPanel extends JPanel {
 	public void revealAdjacent(int x, int y){
 		if((x<0) || (y<0) || (x>=9) || (y>=9)){return;}
 		else {
+			if(!colorArray[x][y].equals(Color.RED)) {
 			Color newColor = Color.LIGHT_GRAY;
 			String newString = "Hello";
 			switch(bombAdjacent[x][y]) {
@@ -245,9 +246,10 @@ public class MyPanel extends JPanel {
 			repaint();
 			
 			
+			}
 			
 
-			if(bombAdjacent[x][y] == 0 && !freeArray[x][y]) {
+			if(bombAdjacent[x][y] == 0 && !freeArray[x][y] && !colorArray[x][y].equals(Color.RED)) {
 				freeArray[x][y] = true;
 
 

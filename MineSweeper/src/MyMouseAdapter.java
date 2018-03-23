@@ -116,7 +116,7 @@ public class MyMouseAdapter extends MouseAdapter {
 					}
 				}
 			}
-			if (MyPanel.bombsDisplayed == true) {
+			if (MyPanel.bombsDisplayed) {
 				
 			
 				Object[] options = {"Yes",
