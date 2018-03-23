@@ -9,7 +9,7 @@ import java.awt.event.*;
 
 public class Main {
 	public static void main(String[] args) {
-		JFrame myFrame = new JFrame("Bienve's Grid");
+		JFrame myFrame = new JFrame("Minesweeper");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myFrame.setLocation(400, 150);
 		myFrame.setSize(900, 900);
@@ -27,7 +27,7 @@ public class Main {
 		MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
 		myFrame.addMouseListener(myMouseAdapter);
 		
-		JMenuBar menubar = new JMenuBar();
+		/*JMenuBar menubar = new JMenuBar();
 		
 		JMenu opt = new JMenu("Options");
 		JMenu bkg = new JMenu("Background Colour");
@@ -45,7 +45,7 @@ public class Main {
 		
 		bkg.add(blue);
 		
-		myFrame.setJMenuBar(menubar);
+		myFrame.setJMenuBar(menubar);*/
 		
 		
 		

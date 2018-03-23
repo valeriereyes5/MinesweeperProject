@@ -114,8 +114,8 @@ public class MyMouseAdapter extends MouseAdapter {
 			}
 			if (MyPanel.bombsDisplayed == true) {
 				
-				String str = "Bomb Displayed";
-				System.out.println(str);
+				//String str = "Bomb Displayed";
+				//System.out.println(str);
 				//myFrame.setVisible(false);
 				//myPanel.DisplayMines(false);
 				Object[] options = {"Yes",
@@ -146,8 +146,8 @@ public class MyMouseAdapter extends MouseAdapter {
 	}
 			}
 			else {
-				String str= "Bomb Not Displayed";
-				System.out.println(str);
+				//String str= "Bomb Not Displayed";
+				//System.out.println(str);
 				myFrame.setVisible(true);
 				
 			}
