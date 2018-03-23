@@ -274,6 +274,31 @@ public class MyPanel extends JPanel {
 
 	}
 
+	public boolean Win() {
+		boolean status = true;
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
+			for (int y = 0; y < TOTAL_ROWS ; y++) { 
+				if( (colorArray[x][y] == Color.WHITE || colorArray[x][y] == Color.RED) && bombArray[x][y]) { 
+					status = true;
+					//System.out.println("You won5");
+				}
+				/*if(colorArray[x][y] != Color.WHITE && !bombArray[x][y]) {
+					status = true;
+					System.out.println("You won4");
+				}*/
+
+				if(colorArray[x][y] == Color.WHITE && !bombArray[x][y] ) {
+					status = false;
+				}
+			}
+		}
+
+
+
+		return status;
+	}
+
+
 
 
 

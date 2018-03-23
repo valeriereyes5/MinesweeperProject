@@ -104,6 +104,10 @@ public class MyMouseAdapter extends MouseAdapter {
 							MyPanel.bombsDisplayed = true;
 						}else {
 							myPanel.revealAdjacent(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
+							if(myPanel.Win() == true) {
+								System.out.println("You win!!!!");
+							}
+
 							myPanel.repaint();
 
 						}
@@ -200,6 +204,7 @@ public class MyMouseAdapter extends MouseAdapter {
 						myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 						myPanel.flagArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = flag;
 						myPanel.repaint();
+						
 
 					}
 				}
