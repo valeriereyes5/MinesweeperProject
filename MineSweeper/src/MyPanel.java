@@ -13,12 +13,19 @@ public class MyPanel extends JPanel {
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 10;   //Last row has only one cell
 
+	public static Boolean bombsDisplayed = false;
+	
+	
+	
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public Boolean[][] bombArray = new Boolean[TOTAL_COLUMNS][TOTAL_ROWS];
+	
+	public String[][] stringArray = new String[TOTAL_COLUMNS][TOTAL_ROWS];
+	
 	public int[][] bombAdjacent = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public Boolean[][]freeArray  = new Boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
@@ -36,6 +43,7 @@ public class MyPanel extends JPanel {
 			for (int y = 0; y < TOTAL_ROWS ; y++) { 
 				colorArray[x][y] = Color.WHITE;
 				bombArray[x][y] = false;
+				stringArray[x][y] = "";
 				bombAdjacent[x][y] = 0;
 				freeArray[x][y] = false;
 			}
@@ -53,7 +61,10 @@ public class MyPanel extends JPanel {
 		int y2 = getHeight() - myInsets.bottom - 1;
 		int width = x2 - x1;
 		int height = y2 - y1;
-
+		/*
+		if (colorArray[x][y] == Color.YELLOW) {
+			g.drawString("1",1,1);
+		}*/
 		//Paint the background
 		g.setColor(Color.pink);
 		g.fillRect(x1, y1, width + 1, height + 1);
@@ -61,7 +72,7 @@ public class MyPanel extends JPanel {
 		//Draw the grid minus the bottom row (which has only one cell)
 		//By default, the grid will be 10x10 (see above: TOTAL_COLUMNS and TOTAL_ROWS) 
 
-		/////////////////////////CAMBIAR LINEAS que divide DE MINSWEEPER///////////////////
+		/////////////////////////CAMBIA LAS LINEAS que divide DE MINSWEEPER///////////////////
 
 		g.setColor(Color.BLACK);
 		for (int y = 0; y <= TOTAL_ROWS - 1; y++) {
@@ -79,7 +90,6 @@ public class MyPanel extends JPanel {
 			for (int y = 0; y < TOTAL_ROWS-1; y++) { ////added -1 para que no pinte el cuadrito extra
 
 				Color c = colorArray[x][y];
-
 				///////////////////////////////Si lo cambias cambia todo a un mismo color ////////////////////////
 				g.setColor(c);
 
@@ -128,6 +138,7 @@ public class MyPanel extends JPanel {
 			for (int y = 0; y < TOTAL_ROWS ; y++) { 
 				if(bombArray[x][y] ) { 
 					colorArray[x][y] = Color.BLACK;
+					
 				}
 			}
 		}
@@ -175,6 +186,9 @@ public class MyPanel extends JPanel {
 			}
 			colorArray[x][y] = newColor;
 			repaint();
+			
+			
+			
 
 			if(bombAdjacent[x][y] == 0 && !freeArray[x][y]) {
 				freeArray[x][y] = true;

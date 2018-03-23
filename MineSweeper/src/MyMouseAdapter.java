@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class MyMouseAdapter extends MouseAdapter {
 	public void mousePressed(MouseEvent e) {
@@ -100,6 +101,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							myPanel.repaint();
 							//// calles DisplayMines method which displays all other mines
 							myPanel.DisplayMines();
+							MyPanel.bombsDisplayed = true;
 						}else {
 							myPanel.revealAdjacent(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
 							myPanel.repaint();
@@ -109,6 +111,45 @@ public class MyMouseAdapter extends MouseAdapter {
 
 					}
 				}
+			}
+			if (MyPanel.bombsDisplayed == true) {
+				
+				String str = "Bomb Displayed";
+				System.out.println(str);
+				//myFrame.setVisible(false);
+				//myPanel.DisplayMines(false);
+				Object[] options = {"Yes",
+	                    "Exit"};
+	int n = JOptionPane.showOptionDialog(myFrame,
+	    "Would you like to reset the game",
+	    "GameOver",
+	    JOptionPane.YES_NO_CANCEL_OPTION,
+	    JOptionPane.QUESTION_MESSAGE,
+	    null,
+	    options,
+	    options[1]);
+	
+	System.out.println(n);
+	
+	if (n == 0) {
+		myFrame.dispose();
+		MyPanel.bombsDisplayed = false;
+		Main.main(null);
+		
+		y=0;
+			
+	}
+	if (n == 1) {
+		myFrame.dispose();
+		
+		
+	}
+			}
+			else {
+				String str= "Bomb Not Displayed";
+				System.out.println(str);
+				myFrame.setVisible(true);
+				
 			}
 			myPanel.repaint();
 			break;
