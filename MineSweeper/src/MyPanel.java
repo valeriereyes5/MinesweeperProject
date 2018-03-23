@@ -75,6 +75,7 @@ public class MyPanel extends JPanel {
 		int width = x2 - x1;
 		int height = y2 - y1;
 		
+		
 		//Paint the background
 		g.setColor(Color.pink);
 		g.fillRect(x1, y1, width + 1, height + 1);
@@ -93,6 +94,13 @@ public class MyPanel extends JPanel {
 			g.drawLine(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS -1))); 
 		}
 
+		g.setColor(Color.BLACK);
+		g.fillRect(timeX,timeY,150,70);
+		sec = (int) ((new Date().getTime()-startDate.getTime())/ 1000);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Tahoma", Font.PLAIN, 80));
+		g.drawString(Integer.toString(sec), timeX, timeY+65);
+		repaint();
 		//Draw an additional cell at the bottom left
 		//g.drawRect(x1 + GRID_X, y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS - 1)), INNER_CELL_SIZE + 1, INNER_CELL_SIZE + 1);
 
@@ -112,12 +120,7 @@ public class MyPanel extends JPanel {
 				g.setColor(Color.BLACK);
 				g.drawString(d, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 25,  y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1))+45);
 				
-				g.setColor(Color.BLACK);
-				g.fillRect(timeX,timeY,150,70);
-				sec = (int) ((new Date().getTime()-startDate.getTime())/ 1000);
-				g.setColor(Color.WHITE);
-				g.setFont(new Font("Tahoma", Font.PLAIN, 80));
-				g.drawString(Integer.toString(sec), timeX, timeY+65);
+				
 				
 				g.setColor(c);
 			}
