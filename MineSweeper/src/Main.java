@@ -27,7 +27,7 @@ public class Main {
 		MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
 		myFrame.addMouseListener(myMouseAdapter);
 		
-		JMenuBar menubar = new JMenuBar();
+		/*JMenuBar menubar = new JMenuBar();
 		
 		JMenu opt = new JMenu("Options");
 		JMenu bkg = new JMenu("Background Colour");
@@ -45,7 +45,7 @@ public class Main {
 		
 		bkg.add(blue);
 		
-		myFrame.setJMenuBar(menubar);
+		myFrame.setJMenuBar(menubar);*/
 		
 		
 		

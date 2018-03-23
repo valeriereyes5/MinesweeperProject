@@ -1,6 +1,10 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -61,10 +65,7 @@ public class MyPanel extends JPanel {
 		int y2 = getHeight() - myInsets.bottom - 1;
 		int width = x2 - x1;
 		int height = y2 - y1;
-		/*
-		if (colorArray[x][y] == Color.YELLOW) {
-			g.drawString("1",1,1);
-		}*/
+		
 		//Paint the background
 		g.setColor(Color.pink);
 		g.fillRect(x1, y1, width + 1, height + 1);
@@ -73,7 +74,6 @@ public class MyPanel extends JPanel {
 		//By default, the grid will be 10x10 (see above: TOTAL_COLUMNS and TOTAL_ROWS) 
 
 		/////////////////////////CAMBIA LAS LINEAS que divide DE MINSWEEPER///////////////////
-
 		g.setColor(Color.BLACK);
 		for (int y = 0; y <= TOTAL_ROWS - 1; y++) {
 			g.drawLine(x1 + GRID_X, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)), x1 + GRID_X + ((INNER_CELL_SIZE + 1) * TOTAL_COLUMNS), y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)));
@@ -90,11 +90,20 @@ public class MyPanel extends JPanel {
 			for (int y = 0; y < TOTAL_ROWS-1; y++) { ////added -1 para que no pinte el cuadrito extra
 
 				Color c = colorArray[x][y];
+				String d = stringArray[x][y];
+				
 				///////////////////////////////Si lo cambias cambia todo a un mismo color ////////////////////////
+				
 				g.setColor(c);
-
 				g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1))+1 , INNER_CELL_SIZE, INNER_CELL_SIZE);
-
+				
+				g.setFont(new Font ("Comic Sans", Font.PLAIN, 20));
+				g.setColor(Color.BLACK);
+				g.drawString(d, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 25,  y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1))+45);
+				
+				
+				
+				g.setColor(c);
 			}
 		}
 	}
@@ -155,36 +164,47 @@ public class MyPanel extends JPanel {
 
 		else {
 			Color newColor = Color.LIGHT_GRAY;
+			String newString = "Hello";
 			switch(bombAdjacent[x][y]) {
 			case 1:
 				newColor = Color.YELLOW;
+				newString = "1";
 				break;
 			case 2:
 				newColor = Color.BLUE;
+				newString = "2";
 				break;
 			case 3:
 				newColor = Color.CYAN;
+				newString = "3";
 				break;
 			case 4:
 				newColor = Color.DARK_GRAY;
+				newString = "4";
 				break;
 			case 5:
 				newColor = Color.GREEN;
+				newString = "15";
 				break;
 			case 6:
 				newColor = Color.MAGENTA;
+				newString = "6";
 				break;
 			case 7:
 				newColor = Color.ORANGE;
+				newString = "7";
 				break;
 			case 8:
 				newColor = new Color(230,230,250); ////lavender
+				newString = "8";
 				break;
 			default:
 				newColor = Color.LIGHT_GRAY;
+				newString = "";
 				break;
 			}
 			colorArray[x][y] = newColor;
+			stringArray[x][y] = newString;
 			repaint();
 			
 			
