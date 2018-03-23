@@ -114,10 +114,7 @@ public class MyMouseAdapter extends MouseAdapter {
 			}
 			if (MyPanel.bombsDisplayed == true) {
 				
-				//String str = "Bomb Displayed";
-				//System.out.println(str);
-				//myFrame.setVisible(false);
-				//myPanel.DisplayMines(false);
+			
 				Object[] options = {"Yes",
 	                    "Exit"};
 	int n = JOptionPane.showOptionDialog(myFrame,
@@ -146,8 +143,7 @@ public class MyMouseAdapter extends MouseAdapter {
 	}
 			}
 			else {
-				//String str= "Bomb Not Displayed";
-				//System.out.println(str);
+				
 				myFrame.setVisible(true);
 				
 			}
@@ -189,16 +185,20 @@ public class MyMouseAdapter extends MouseAdapter {
 
 						//On the grid other than on the left column and on the top row:
 						Color newColor = null;
+						Boolean flag = true;
 						/////////////Right click- white turns red////
 						if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.WHITE)) {
 							newColor = Color.RED;
+						flag = true;
 						}
 						/////////Right click - red turns white///
 						else if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)) {
 							newColor = Color.WHITE;
+							flag = false;
 
 						}	
 						myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
+						myPanel.flagArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = flag;
 						myPanel.repaint();
 
 

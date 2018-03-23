@@ -15,6 +15,7 @@ public class Main {
 		myFrame.setSize(900, 900);
 		
 		
+		
 		/*Container contentPane = myFrame.getContentPane();
         contentPane.setLayout(null);
         JLabel img = new JLabel(new ImageIcon("icon.gif"));

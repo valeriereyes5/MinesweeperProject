@@ -4,6 +4,7 @@ import java.awt.Graphics;
 //import java.awt.Graphics2D;
 //import java.awt.Image;
 import java.awt.Insets;
+import java.util.*;
 //import java.awt.Toolkit;
 import java.util.Random;
 
@@ -15,10 +16,17 @@ public class MyPanel extends JPanel {
 	private static final int GRID_Y = 100;
 	private static final int INNER_CELL_SIZE = 70;
 	private static final int TOTAL_COLUMNS = 9;
-	private static final int TOTAL_ROWS = 10;   //Last row has only one cell
+	private static final int TOTAL_ROWS = 10; 
 
+	public int sec=0;
+	public int min= 0;
+	
+	public int timeX = 1;
+	public int timeY = 1;
+	
 	public static Boolean bombsDisplayed = false;
 	
+	Date startDate = new Date();
 	
 	public Graphics h;
 	public int x = -1;
@@ -29,7 +37,7 @@ public class MyPanel extends JPanel {
 	public Boolean[][] bombArray = new Boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	
 	public String[][] stringArray = new String[TOTAL_COLUMNS][TOTAL_ROWS];
-	
+	public Boolean[][] flagArray = new Boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int[][] bombAdjacent = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public Boolean[][]freeArray  = new Boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
@@ -53,6 +61,7 @@ public class MyPanel extends JPanel {
 			}
 		}
 		GenerateMines();
+		
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -69,6 +78,8 @@ public class MyPanel extends JPanel {
 		//Paint the background
 		g.setColor(Color.pink);
 		g.fillRect(x1, y1, width + 1, height + 1);
+		
+		
 
 		//Draw the grid minus the bottom row (which has only one cell)
 		//By default, the grid will be 10x10 (see above: TOTAL_COLUMNS and TOTAL_ROWS) 
@@ -101,7 +112,12 @@ public class MyPanel extends JPanel {
 				g.setColor(Color.BLACK);
 				g.drawString(d, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 25,  y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1))+45);
 				
-				
+				g.setColor(Color.BLACK);
+				g.fillRect(timeX,timeY,150,70);
+				sec = (int) ((new Date().getTime()-startDate.getTime())/ 1000);
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Tahoma", Font.PLAIN, 80));
+				g.drawString(Integer.toString(sec), timeX, timeY+65);
 				
 				g.setColor(c);
 			}
@@ -164,6 +180,7 @@ public class MyPanel extends JPanel {
 		else {
 			Color newColor = Color.LIGHT_GRAY;
 			String newString = "Hello";
+			System.out.println(newColor);
 			switch(bombAdjacent[x][y]) {
 			case 1:
 				newColor = Color.YELLOW;
@@ -215,14 +232,20 @@ public class MyPanel extends JPanel {
 
 
 				//			colorArray[x][y] = Color.GRAY;
-				revealAdjacent(x-1, y);
-				revealAdjacent(x+1, y);
-				revealAdjacent(x, y-1);
-				revealAdjacent(x, y+1);
-				revealAdjacent(x-1, y-1);
-				revealAdjacent(x+1, y-1);
-				revealAdjacent(x+1, y+1);
-				revealAdjacent(x-1, y+1);
+				//if(flagArray[x][y] != true){
+					revealAdjacent(x-1, y);
+					revealAdjacent(x+1, y);
+					revealAdjacent(x, y-1);
+					revealAdjacent(x, y+1);
+					revealAdjacent(x-1, y-1);
+					revealAdjacent(x+1, y-1);
+					revealAdjacent(x+1, y+1);
+					revealAdjacent(x-1, y+1);
+			//	}
+				//else{
+					
+			//	}
+				
 			}
 		}
 
