@@ -16,11 +16,12 @@ public class MyPanel extends JPanel {
 	public static Boolean bombsDisplayed = false;
 	
 	
-	
+	public Graphics h;
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
+	public String number ="2";
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public Boolean[][] bombArray = new Boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	
@@ -152,12 +153,18 @@ public class MyPanel extends JPanel {
 	///////REVEALS THE NUMBER OF BOMBS SORROUNDING THE SQUARE
 	public void revealAdjacent(int x, int y){
 		if((x<0) || (y<0) || (x>=9) || (y>=9)){return;}
-
 		else {
 			Color newColor = Color.LIGHT_GRAY;
 			switch(bombAdjacent[x][y]) {
 			case 1:
+				if(number != null) {
+					number = "String";
+					h.drawString(number, x, y);
+					}
+				else {
+				
 				newColor = Color.YELLOW;
+				}
 				break;
 			case 2:
 				newColor = Color.BLUE;
