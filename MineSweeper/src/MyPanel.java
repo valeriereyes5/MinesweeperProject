@@ -21,6 +21,8 @@ public class MyPanel extends JPanel {
 	public int sec=0;
 	public int min= 0;
 	
+	public int score=0;
+	
 	public int timeX = 1;
 	public int timeY = 1;
 	
@@ -77,7 +79,7 @@ public class MyPanel extends JPanel {
 		
 		
 		//Paint the background
-		g.setColor(Color.pink);
+		g.setColor(Color.PINK);
 		g.fillRect(x1, y1, width + 1, height + 1);
 		
 		
@@ -85,7 +87,7 @@ public class MyPanel extends JPanel {
 		//Draw the grid minus the bottom row (which has only one cell)
 		//By default, the grid will be 10x10 (see above: TOTAL_COLUMNS and TOTAL_ROWS) 
 
-		/////////////////////////CAMBIA LAS LINEAS que divide DE MINSWEEPER///////////////////
+		/////////////////////////CAMBIA LAS LINEAS QUE DIVIDE EL GRID DE MINSWEEPER///////////////////
 		g.setColor(Color.BLACK);
 		for (int y = 0; y <= TOTAL_ROWS - 1; y++) {
 			g.drawLine(x1 + GRID_X, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)), x1 + GRID_X + ((INNER_CELL_SIZE + 1) * TOTAL_COLUMNS), y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)));
@@ -93,13 +95,30 @@ public class MyPanel extends JPanel {
 		for (int x = 0; x <= TOTAL_COLUMNS; x++) {
 			g.drawLine(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS -1))); 
 		}
-
-		g.setColor(Color.BLACK);
-		g.fillRect(timeX,timeY,150,70);
-		sec = (int) ((new Date().getTime()-startDate.getTime())/ 1000);
-		g.setColor(Color.WHITE);
-		g.setFont(new Font("Tahoma", Font.PLAIN, 80));
-		g.drawString(Integer.toString(sec), timeX, timeY+65);
+		
+		if (bombsDisplayed==true) {
+			///////////////////CREATES BOX FOR THE TIMER//////////////////////////
+			g.setColor(Color.BLACK);
+			g.fillRect(timeX,timeY,380,70);
+			////////////////////CREATES THE TIMER FOR THE BOX//////////////////////
+			score=sec;
+			g.setColor(new Color(40, 253, 144));
+			g.setFont(new Font("Tahoma", Font.PLAIN, 80));
+			g.drawString("TIMER: " + Integer.toString(sec), timeX, timeY+65);
+			System.out.println(score);
+			
+			
+		}
+		else {
+			///////////////////CREATES BOX FOR THE TIMER//////////////////////////
+			g.setColor(Color.BLACK);
+			g.fillRect(timeX,timeY,380,70);
+			////////////////////CREATES THE TIMER FOR THE BOX//////////////////////
+			sec = (int) ((new Date().getTime()-startDate.getTime())/ 1000);
+			g.setColor(new Color(40, 253, 144));
+			g.setFont(new Font("Tahoma", Font.PLAIN, 80));
+			g.drawString("TIMER: " + Integer.toString(sec), timeX, timeY+65);
+		}
 		repaint();
 		//Draw an additional cell at the bottom left
 		//g.drawRect(x1 + GRID_X, y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS - 1)), INNER_CELL_SIZE + 1, INNER_CELL_SIZE + 1);
@@ -183,7 +202,6 @@ public class MyPanel extends JPanel {
 		else {
 			Color newColor = Color.LIGHT_GRAY;
 			String newString = "Hello";
-			System.out.println(newColor);
 			switch(bombAdjacent[x][y]) {
 			case 1:
 				newColor = Color.YELLOW;

@@ -201,7 +201,6 @@ public class MyMouseAdapter extends MouseAdapter {
 						myPanel.flagArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = flag;
 						myPanel.repaint();
 
-
 					}
 				}
 			}
