@@ -26,8 +26,8 @@ public class MyPanel extends JPanel {
 	
 	public int score=0;
 	
-	public int timeX = 1;
-	public int timeY = 1;
+	public int timeX = 250;
+	public int timeY = 5;
 	
 	public static Boolean bombsDisplayed = false;
 	public static Boolean wonGame = false;
@@ -102,12 +102,12 @@ public class MyPanel extends JPanel {
 		
 		if (bombsDisplayed==true) {
 			///////////////////CREATES BOX FOR THE TIMER//////////////////////////
-			g.setColor(Color.BLACK);
-			g.fillRect(timeX,timeY,380,70);
+			
+			
 			////////////////////CREATES THE TIMER FOR THE BOX//////////////////////
 			score=sec;
-			g.setColor(new Color(40, 253, 144));
-			g.setFont(new Font("Tahoma", Font.PLAIN, 80));
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Comic Sans", Font.PLAIN, 80));
 			g.drawString("TIMER: " + Integer.toString(sec), timeX, timeY+65);
 			//System.out.println(score);
 			
@@ -115,12 +115,12 @@ public class MyPanel extends JPanel {
 		}
 		else {
 			///////////////////CREATES BOX FOR THE TIMER//////////////////////////
-			g.setColor(Color.BLACK);
-			g.fillRect(timeX,timeY,380,70);
+			
+			
 			////////////////////CREATES THE TIMER FOR THE BOX//////////////////////
 			sec = (int) ((new Date().getTime()-startDate.getTime())/ 1000);
-			g.setColor(new Color(40, 253, 144));
-			g.setFont(new Font("Tahoma", Font.PLAIN, 80));
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Comic Sans", Font.PLAIN, 80));
 			g.drawString("TIMER: " + Integer.toString(sec), timeX, timeY+65);
 		}
 		repaint();
@@ -139,8 +139,8 @@ public class MyPanel extends JPanel {
 				g.setColor(c);
 				g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1))+1 , INNER_CELL_SIZE, INNER_CELL_SIZE);
 				
-				g.setFont(new Font ("Comic Sans", Font.PLAIN, 20));
-				g.setColor(Color.BLACK);
+				g.setFont(new Font ("Comic Sans", Font.PLAIN, 40));
+				g.setColor(new Color(139,69,19));
 				g.drawString(d, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 25,  y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1))+45);
 				
 				
@@ -193,7 +193,7 @@ public class MyPanel extends JPanel {
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
 			for (int y = 0; y < TOTAL_ROWS ; y++) { 
 				if(bombArray[x][y] ) { 
-					colorArray[x][y] = Color.BLACK;
+					colorArray[x][y] = new Color(25,25,25);
 					
 				}
 			}
@@ -216,31 +216,31 @@ public class MyPanel extends JPanel {
 			
 			switch(bombAdjacent[x][y]) {
 			case 1:
-				newColor = Color.YELLOW;
+				newColor = new Color(255,250,215);
 				newString = "1";
 				break;
 			case 2:
-				newColor = Color.BLUE;
+				newColor = new Color(220,255,255);
 				newString = "2";
 				break;
 			case 3:
-				newColor = Color.CYAN;
+				newColor = new Color(221,160,221);
 				newString = "3";
 				break;
 			case 4:
-				newColor = Color.DARK_GRAY;
+				newColor = new Color(255,235,238);
 				newString = "4";
 				break;
 			case 5:
-				newColor = Color.GREEN;
+				newColor = new Color(244,238,224);
 				newString = "5";
 				break;
 			case 6:
-				newColor = Color.MAGENTA;
+				newColor = new Color(255,228,225);
 				newString = "6";
 				break;
 			case 7:
-				newColor = Color.ORANGE;
+				newColor = new Color(255,228,181);
 				newString = "7";
 				break;
 			case 8:
