@@ -8,6 +8,7 @@ import java.util.*;
 //import java.awt.Toolkit;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MyPanel extends JPanel {
@@ -21,12 +22,15 @@ public class MyPanel extends JPanel {
 	public int sec=0;
 	public int min= 0;
 	
+	public int count = 0;
+	
 	public int score=0;
 	
 	public int timeX = 1;
 	public int timeY = 1;
 	
 	public static Boolean bombsDisplayed = false;
+	public static Boolean wonGame = false;
 	
 	Date startDate = new Date();
 	
@@ -105,7 +109,7 @@ public class MyPanel extends JPanel {
 			g.setColor(new Color(40, 253, 144));
 			g.setFont(new Font("Tahoma", Font.PLAIN, 80));
 			g.drawString("TIMER: " + Integer.toString(sec), timeX, timeY+65);
-			System.out.println(score);
+			//System.out.println(score);
 			
 			
 		}
@@ -152,10 +156,15 @@ public class MyPanel extends JPanel {
 
 
 		while(numOfBombs<totalBombs) {
-			int randomX = new Random().nextInt(TOTAL_COLUMNS);
-			int randomY = new Random().nextInt(TOTAL_ROWS);
+			int randomX = new Random().nextInt(9);
+			int randomY = new Random().nextInt(9);
 			if (!(bombArray[randomX][randomY])) {
 				bombArray[randomX][randomY] = true;	
+				
+				System.out.println("");
+				System.out.println(randomX);
+				System.out.println(randomY);
+				System.out.println("");
 				numOfBombs++;
 				/////////////////////////
 				for (int i= randomX-1; i<= randomX +1; i++) {
@@ -200,9 +209,11 @@ public class MyPanel extends JPanel {
 	public void revealAdjacent(int x, int y){
 		if((x<0) || (y<0) || (x>=9) || (y>=9)){return;}
 		else {
-			if(!colorArray[x][y].equals(Color.RED)) {
 			Color newColor = Color.LIGHT_GRAY;
 			String newString = "Hello";
+			
+			System.out.println("Count" + count);
+			
 			switch(bombAdjacent[x][y]) {
 			case 1:
 				newColor = Color.YELLOW;
@@ -222,7 +233,7 @@ public class MyPanel extends JPanel {
 				break;
 			case 5:
 				newColor = Color.GREEN;
-				newString = "15";
+				newString = "5";
 				break;
 			case 6:
 				newColor = Color.MAGENTA;
@@ -243,14 +254,16 @@ public class MyPanel extends JPanel {
 			}
 			colorArray[x][y] = newColor;
 			stringArray[x][y] = newString;
+			
+
 			repaint();
 			
 			
-			}
 			
 
-			if(bombAdjacent[x][y] == 0 && !freeArray[x][y] && !colorArray[x][y].equals(Color.RED)) {
+			if(bombAdjacent[x][y] == 0 && !freeArray[x][y]) {
 				freeArray[x][y] = true;
+				count += 1;
 
 
 
@@ -270,37 +283,27 @@ public class MyPanel extends JPanel {
 			//	}
 				
 			}
+			else if(bombAdjacent[x][y] != 0 && !freeArray[x][y]) {
+				freeArray[x][y] = true;
+				count += 1;
+			}
 		}
 
 		//System.out.println("Test");
 
 	}
 
-	public boolean Win() {
-		boolean status = true;
-		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
-			for (int y = 0; y < TOTAL_ROWS ; y++) { 
-				if( (colorArray[x][y] == Color.WHITE || colorArray[x][y] == Color.RED) && bombArray[x][y]) { 
-					status = true;
-					//System.out.println("You won5");
-				}
-				/*if(colorArray[x][y] != Color.WHITE && !bombArray[x][y]) {
-					status = true;
-					System.out.println("You won4");
-				}*/
 
-				if(colorArray[x][y] == Color.WHITE && !bombArray[x][y] ) {
-					status = false;
+	public void Win() {
+				if(count>=71) { 
+
+					wonGame= true;
+					
 				}
+				
+				return ;
 			}
-		}
-
-
-
-		return status;
-	}
-
-
+		
 
 
 
@@ -354,4 +357,5 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
+	
 }

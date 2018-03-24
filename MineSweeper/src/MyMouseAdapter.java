@@ -7,8 +7,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+
 public class MyMouseAdapter extends MouseAdapter {
 	public void mousePressed(MouseEvent e) {
+		
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
 			Component c = e.getComponent();
@@ -67,6 +69,7 @@ public class MyMouseAdapter extends MouseAdapter {
 				c = c.getParent();
 				if (c == null) {
 					return;
+					
 				}
 			}
 			JFrame myFrame = (JFrame)c;
@@ -104,9 +107,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							MyPanel.bombsDisplayed = true;
 						}else {
 							myPanel.revealAdjacent(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
-							if(myPanel.Win() == true) {
-								System.out.println("You win!!!!");
-							}
+							
 
 							myPanel.repaint();
 
@@ -116,14 +117,22 @@ public class MyMouseAdapter extends MouseAdapter {
 					}
 				}
 			}
-			if (MyPanel.bombsDisplayed) {
-				
-			
+			myPanel.Win();
+			String wonOrLose = " ";
+			if (MyPanel.bombsDisplayed == true || MyPanel.wonGame == true ) {
+				if (MyPanel.bombsDisplayed ==true){
+				 wonOrLose = "GameOver!";
+				 
+				}
+				else if(MyPanel.wonGame ==true){
+				 wonOrLose = "You Won!";
+				 
+					}
 				Object[] options = {"Yes",
 	                    "Exit"};
 	int n = JOptionPane.showOptionDialog(myFrame,
-	    "Would you like to reset the game",
-	    "GameOver",
+	    "Would You Like To Play Again?",
+	    wonOrLose,
 	    JOptionPane.YES_NO_CANCEL_OPTION,
 	    JOptionPane.QUESTION_MESSAGE,
 	    null,
@@ -135,6 +144,7 @@ public class MyMouseAdapter extends MouseAdapter {
 	if (n == 0) {
 		myFrame.dispose();
 		MyPanel.bombsDisplayed = false;
+		MyPanel.wonGame = false;
 		Main.main(null);
 		
 		y=0;
